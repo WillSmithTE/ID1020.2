@@ -1,5 +1,4 @@
 public class DoubleLinkedList<Item> {
-    private int n;
     private Node before;
     private Node after;
 
