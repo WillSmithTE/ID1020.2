@@ -9,17 +9,31 @@ public class Util {
         list[j] = x;
     }
 
-    public static <U extends Consumer<String>> void readFromFile(File file, U consumer) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-        Scanner scanner = new Scanner(file);
-        scanner.useDelimiter(" +");
-        String line;
-        String[] lineWords;
-        while ((line = reader.readLine()) != null) {
-            lineWords = line.split(" ");
-            for (String word : lineWords) {
+    public static <U extends Consumer<String>> void readLinesFromFile(File file, U consumer) throws IOException {
+        readFromFile(file, consumer::accept);
+    }
+
+    public static <U extends Consumer<String>> void readWordsFromFile(File file, U consumer) throws IOException {
+        readFromFile(file, (line) -> {
+            String[] words = line.split(" ");
+            for (String word : words) {
                 consumer.accept(word);
             }
+        });
+    }
+
+    private static void readFromFile(File file, Consumer<String> doSomethingWithLine) {
+        String line;
+        String[] lineWords;
+        try {
+            Scanner scanner = new Scanner(file);
+            scanner.useDelimiter(" +");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            while ((line = reader.readLine()) != null) {
+                doSomethingWithLine.accept(line );
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,4 +1,4 @@
-bandonned->abandoned
+abandonned->abandoned
 aberation->aberration
 abilityes->abilities
 abilties->abilities

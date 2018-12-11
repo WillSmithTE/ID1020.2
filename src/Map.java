@@ -29,8 +29,8 @@ public class Map {
         return Math.floorMod(key.hashCode(), capacity);
     }
 
-    public Queue<String> keys() {
-        Queue<String> queue = new Queue<String>();
+    public MyQueue<String> keys() {
+        MyQueue<String> queue = new MyQueue<String>();
         for (int i = 0; i < capacity; i++) {
             for (String word : words[i].keys()) {
                 queue.add(word);
@@ -80,7 +80,7 @@ public class Map {
         }
 
         public Iterable<String> keys() {
-            Queue<String> queue = new Queue<String>();
+            MyQueue<String> queue = new MyQueue<String>();
             for (Node i = first; i != null; i = i.next) {
                 queue.add(i.key);
             }

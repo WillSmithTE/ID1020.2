@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Queue<Item> implements Iterable<Item> {
+public class MyQueue<Item> implements Iterable<Item> {
     private int size;
     private Node first;
     private Node last;
@@ -11,7 +11,7 @@ public class Queue<Item> implements Iterable<Item> {
         private Node next;
     }
 
-    public Queue() {
+    public MyQueue() {
         first = null;
         last = null;
         size = 0;
