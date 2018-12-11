@@ -50,6 +50,10 @@ public class MostCommonWords {
         }
     }
 
+    private static void addToMap(String string) {
+        words.add(string);
+    }
+
     private static void sort(String[] list) {
         sort(list, 0, list.length - 1);
     }
