@@ -45,33 +45,7 @@ public class SpellingFixer {
                         }
                     }
                     writer.write(System.lineSeparator());
-//                    for (String character : line.split("")) {
-//                        if (isLetterOrDigit(character.charAt(0))) {
-//                            builder.append(character);
-//                            if (!isLetterOrDigit(reader.read())) {
-//                                writer.write(getCorrection(builder.toString()));
-//                                builder.setLength(0);
-//                            }
-//                        } else {
-//                            writer.write(getCorrection(builder.toString()));
-//                            builder.setLength(0);
-//                            writer.write(character);
-//                        }
-//                    }
-//                    writer.write(getCorrection(builder.toString()));
-//                    writer.write(System.lineSeparator());
                 }
-
-//                while ((line = reader.readLine()) != null) {
-//                    lineWords = line.split(" ");
-//                    for (String word : lineWords) {
-//                        Optional<String> correction = getOptionalCorrection(word);
-//                        if (correction.isPresent()) {
-//                            word = correction.get();
-//                        }
-//                        writer.write(word + " ");
-//                    }
-//                }
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -139,10 +113,6 @@ public class SpellingFixer {
     }
 
     private static boolean isLetterOrDigit(String string) {
-        if (string.length() == 1 && isLetterOrDigit(string.charAt(0))) {
-            return true;
-        } else {
-            return false;
-        }
+        return string.length() == 1 && isLetterOrDigit(string.charAt(0));
     }
 }
