@@ -3,7 +3,7 @@ import java.time.Instant;
 import java.util.Random;
 import java.util.function.Consumer;
 
-public class QuickSortVsInsertionSort {
+public class QuickSortVsInsertionSort implements Testable {
 
     private static final int DEFAULT_SEED = Instant.now().getNano();
 
@@ -20,7 +20,9 @@ public class QuickSortVsInsertionSort {
 
             Float[] floatArray1 = makeRandomArrayFloats(count, max, DEFAULT_SEED);
             Float[] floatArray2 = floatArray1.clone();
-            compareSortingTimes(floatArray1, floatArray2,"floats");
+            compareSortingTimes(floatArray1, floatArray2, "floats");
+        } else if (args.length == 1 && args[0].equals("test")) {
+            runTestSuite();
         }
     }
 
@@ -47,9 +49,9 @@ public class QuickSortVsInsertionSort {
 
     private static <U extends Comparable> void insertionsort(U[] array) {
         int size = array.length;
-        for (int i = 1 ; i < size ; i++) {
-            for (int j = i ; j > 0 && array[j].compareTo(array[j-1]) < 0 ; j--) {
-                Util.swap(array, j, j-1);
+        for (int i = 1; i < size; i++) {
+            for (int j = i; j > 0 && array[j].compareTo(array[j - 1]) < 0; j--) {
+                Util.swap(array, j, j - 1);
             }
         }
 
@@ -71,5 +73,94 @@ public class QuickSortVsInsertionSort {
             array[i] = (random.nextFloat() * (max + 1));
         }
         return array;
+    }
+
+    private static void runTestSuite() {
+        testMakeRandomFloats();
+        testMakeRandomInts();
+        testInsertionSort();
+        testQuickSort();
+    }
+
+    private static void testMakeRandomFloats() {
+        int count = 10, max = 20, seed = 23;
+        Float[] floats = makeRandomArrayFloats(count, max, seed);
+
+        Util.assertTrue(floats.length == count, "floats array should have " + count + " items");
+
+        float trueMax = Integer.MIN_VALUE;
+        for (int i = 0; i < floats.length; i++) {
+            if (floats[i] > trueMax) {
+                trueMax = floats[i];
+            }
+        }
+        Util.assertTrue(trueMax <= max, "float array should have no numbers higher than " + max);
+
+        Float[] floats2 = makeRandomArrayFloats(count, max, 197);
+        boolean isDifferent = false;
+        for (int i = 0; i < floats.length; i++) {
+            if (!floats[i].equals(floats2.length)) {
+                isDifferent = true;
+            }
+        }
+        Util.assertTrue(isDifferent, "2 arrays generated with different seeds should be different (most of the time)");
+    }
+
+    private static void testMakeRandomInts() {
+        int count = 10, max = 20, seed = 2337;
+        Integer[] ints = makeRandomArrayInts(count, max, seed);
+
+        Util.assertTrue(ints.length == count, "ints array should have " + count + " items");
+
+        float trueMax = Integer.MIN_VALUE;
+        for (int i = 0; i < ints.length; i++) {
+            if (ints[i] > trueMax) {
+                trueMax = ints[i];
+            }
+        }
+        Util.assertTrue(trueMax <= max, "ints array should have no numbers higher than " + max);
+
+        Integer[] ints2 = makeRandomArrayInts(count, max, 7);
+        boolean isDifferent = false;
+        for (int i = 0; i < ints.length; i++) {
+            if (!ints[i].equals(ints2.length)) {
+                isDifferent = true;
+            }
+        }
+        Util.assertTrue(isDifferent, "2 arrays generated with different seeds should be different (most of the time)");
+
+    }
+
+    private static void testInsertionSort() {
+        int[] unsortedInts = {4, 2, 5, 100, 8},
+                sortedInts = {2, 4, 5, 8, 100};
+
+        Integer[] unsortedArray = new Integer[5];
+        for (int i = 0; i < 5; i++) {
+            unsortedArray[i] = unsortedInts[i];
+        }
+
+        insertionsort(unsortedArray);
+
+        for (int i = 0 ; i < 5 ; i++) {
+            Util.assertTrue(unsortedArray[i].equals(sortedInts[i]), "insertionsort failed to sort properly");
+        }
+    }
+
+    private static void testQuickSort() {
+        int[] unsortedInts = {4, 2, 5, 100, 8},
+                sortedInts = {2, 4, 5, 8, 100};
+
+        Integer[] unsortedArray = new Integer[5];
+        for (int i = 0; i < 5; i++) {
+            unsortedArray[i] = unsortedInts[i];
+        }
+
+        QuickSort quickSort = new QuickSort();
+        quickSort.sort(unsortedArray);
+
+        for (int i = 0 ; i < 5 ; i++) {
+            Util.assertTrue(unsortedArray[i].equals(sortedInts[i]), "quicksort failed to sort properly");
+        }
     }
 }
