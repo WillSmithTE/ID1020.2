@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class MostCommonWords {
+public class MostCommonWords implements Testable {
 
     private static Map words;
     private static String[] sortedArray;
@@ -9,7 +9,9 @@ public class MostCommonWords {
     private static final int BIG_PRIME = 786433;
 
     public static void main(String[] args) {
-        if (args.length >= 1) {
+        if (args.length == 1 && args[0].equals("test")) {
+            runTestSuite();
+        } else if (args.length >= 2) {
             String fileName = args[0];
             File file = new File(fileName);
             words = new Map(BIG_PRIME);
@@ -55,10 +57,6 @@ public class MostCommonWords {
             word = word.substring(0, word.length() - 1);
         }
         return word;
-    }
-
-    private static void addToMap(String string) {
-        words.add(string);
     }
 
     private static void sort(String[] list) {
@@ -119,6 +117,43 @@ public class MostCommonWords {
         for (int i = startRank - 1; i <= endRank - 1; i++) {
             System.out.println(i + 1 + " - " + sortedArray[i] + " - " + words.get(sortedArray[i]) + " occurrences");
         }
+    }
+
+    private static void runTestSuite() {
+        testSwap();
+        testStripOfPunctuation();
+    }
+
+    private static void testSwap() {
+        String string1 = "string1",
+                string2 = "string2";
+        String[] arr = {string1, string2};
+
+        swap(arr, 0, 1);
+
+        Util.assertTrue(arr[0].equals(string2), "2nd item should be in the place of the 1st");
+        Util.assertTrue(arr[1].equals(string1), "first item should be in the place of the 2nd");
+
+    }
+
+    private static void testStripOfPunctuation() {
+        String before = "string!",
+                expected = "string",
+                actual = stripOfPunctuation(before);
+
+        Util.assertTrue(actual.equals(expected), "! should be stripped off the string");
+
+        before = "string'.,'";
+        expected = "string";
+        actual = stripOfPunctuation(before);
+
+        Util.assertTrue(actual.equals(expected), "multiple punctuation marks should all be stripped off the string");
+
+        before = "string.1'";
+        expected = "string.1";
+        actual = stripOfPunctuation(before);
+
+        Util.assertTrue(actual.equals(expected), "doesn't remove a digit in between punctuation");
     }
 
 

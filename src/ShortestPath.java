@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public class ShortestPath implements Testable {
 
-    private static final String TEST_FILE_NAME = "NYCtest.txt";
+    private static final String TEST_FILE_NAME = "TestNYC.txt";
     private static final int NUM_VERTICES = 264346;
     private static final int NUM_EDGES = 733846;
 
