@@ -22,7 +22,7 @@ public class MostCommonWords {
                 while ((line = reader.readLine()) != null) {
                     lineWords = line.split(" ");
                     for (String word : lineWords) {
-                        words.add(word);
+                        words.add(stripOfPunctuation(word));
                     }
                 }
 
@@ -48,6 +48,13 @@ public class MostCommonWords {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private static String stripOfPunctuation(String word) {
+        while (!Util.isLetterOrDigit(word.charAt(word.length() - 1))) {
+            word = word.substring(0, word.length() - 1);
+        }
+        return word;
     }
 
     private static void addToMap(String string) {

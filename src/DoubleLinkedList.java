@@ -67,7 +67,7 @@ public class DoubleLinkedList<Item> {
     private static <U> void testInsert(U item) {
         DoubleLinkedList<U> list = new DoubleLinkedList();
         list.insert(item);
-        assertTrue(list.before.next.item == item, "Expected first item to equal '" + item + "' instead of '" + list.before.next.item); ;
+        Util.assertTrue(list.before.next.item == item, "Expected first item to equal '" + item + "' instead of '" + list.before.next.item); ;
     }
 
     private static void testRemoveLIFORemovesCorrectItem() {
@@ -77,7 +77,7 @@ public class DoubleLinkedList<Item> {
         list.insert(int9);
         list.insert(int10);
         Integer removedInt = list.removeLIFO();
-        assertTrue(removedInt.equals(int10), "Failed to remove correct item in LIFO remove - expected '" + int10 + "' but got '" + removedInt + "'.");
+        Util.assertTrue(removedInt.equals(int10), "Failed to remove correct item in LIFO remove - expected '" + int10 + "' but got '" + removedInt + "'.");
     }
 
     private static void testRemoveFIFORemovesCorrectItem() {
@@ -87,7 +87,7 @@ public class DoubleLinkedList<Item> {
         list.insert(string9);
         list.insert(string10);
         String removed = list.removeFIFO();
-        assertTrue(removed.equals(string9), "Failed to remove correct item in FIFO remove - expected '" + string9 + "' but got '" + removed + "'.");
+        Util.assertTrue(removed.equals(string9), "Failed to remove correct item in FIFO remove - expected '" + string9 + "' but got '" + removed + "'.");
 
     }
 
@@ -95,11 +95,7 @@ public class DoubleLinkedList<Item> {
         DoubleLinkedList list = new DoubleLinkedList();
         list.insert(item);
         list.removeFIFO();
-        assertTrue(list.before.next == list.after, "");
-    }
-
-    private static void assertTrue(boolean isTrue, String message) {
-        System.out.println(isTrue ? "Pass" : "Fail: " + message);
+        Util.assertTrue(list.before.next == list.after, "");
     }
 
 }

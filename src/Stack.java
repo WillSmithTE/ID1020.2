@@ -17,6 +17,21 @@ public class Stack<Item> implements Iterable<Item> {
         size++;
     }
 
+    public Item pop() {
+        Item item = first.item;
+        first = first.next;
+        size--;
+        return item;
+    }
+
+    public Node<Item> first() {
+        return first;
+    }
+
+    public int size() {
+        return size;
+    }
+
     public Iterator<Item> iterator() {
         return new StackIterator<Item>(first);
     }
@@ -42,5 +57,5 @@ public class Stack<Item> implements Iterable<Item> {
     private class Node<Item> {
         private Item item;
         private Node<Item> next;
-    }
+        }
 }

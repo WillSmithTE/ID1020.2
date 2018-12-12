@@ -30,10 +30,10 @@ public class SpellingFixer {
                 while ((line = reader.readLine()) != null) {
                     String[] characters = line.split("");
                     for (int i = 0; i < characters.length; i++) {
-                        if (isLetterOrDigit(characters[i])) {
+                        if (Util.isLetterOrDigit(characters[i])) {
                             builder.append(characters[i]);
                             try {
-                                if (!isLetterOrDigit(characters[i + 1])) {
+                                if (!Util.isLetterOrDigit(characters[i + 1])) {
                                     writeCorrection(writer, builder);
                                 }
                             } catch (IndexOutOfBoundsException ignored) {
@@ -103,15 +103,4 @@ public class SpellingFixer {
         return originalPrefix + FILE_NAME_APPENDER;
     }
 
-    private static boolean isLetterOrDigit(char character) {
-        return Character.isLetter(character) || Character.isDigit(character);
-    }
-
-    private static boolean isLetterOrDigit(int character) {
-        return isLetterOrDigit((char) character);
-    }
-
-    private static boolean isLetterOrDigit(String string) {
-        return string.length() == 1 && isLetterOrDigit(string.charAt(0));
-    }
 }
